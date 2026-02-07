@@ -1,17 +1,27 @@
-const DEV_MODE = true;
-const DEV_DATE = "2026-02-07"; // simulate Rose Day
+// ---------------- HELPER ----------------
+function getTodayMMDD() {
+  const d = new Date();
+  return String(d.getMonth() + 1).padStart(2, "0") + "-" +
+         String(d.getDate()).padStart(2, "0");
+}
 
+const today = getTodayMMDD();
+
+// ---------------- DAYS ----------------
 const days = [
-  { name: "Rose Day", date: "02-07", status: "active" },
-  { name: "Propose Day", date: "02-08", status: "locked" },
-  { name: "Chocolate Day", date: "02-09", status: "locked" },
-  { name: "Teddy Day", date: "02-10", status: "locked" },
-  { name: "Promise Day", date: "02-11", status: "locked" },
-  { name: "Hug Day", date: "02-12", status: "locked" },
-  { name: "Flirting Day", date: "02-18", status: "locked" },
-  { name: "Confession Day", date: "02-19", status: "locked" },
-  { name: "Missing Day", date: "02-20", status: "locked" }
-];
+  { name: "Rose Day", date: "02-07" },
+  { name: "Propose Day", date: "02-08" },
+  { name: "Chocolate Day", date: "02-09" },
+  { name: "Teddy Day", date: "02-10" },
+  { name: "Promise Day", date: "02-11" },
+  { name: "Hug Day", date: "02-12" },
+  { name: "Flirting Day", date: "02-18" },
+  { name: "Confession Day", date: "02-19" },
+  { name: "Missing Day", date: "02-20" }
+].map(day => ({
+  ...day,
+  status: today >= day.date ? "active" : "locked"
+}));
 
 const container = document.getElementById("checkpoints");
 
@@ -23,27 +33,27 @@ days.forEach(day => {
   title.className = "day-title";
   title.innerText = day.name;
 
-  const message = document.createElement("div");
-  message.className = "lock-message";
-  message.innerText =
-    "Some things are meant to arrive at their own time. This one is waiting for its day.";
+  const msg = document.createElement("div");
+  msg.className = "lock-message";
+  msg.innerText = "Some things are meant to arrive at their own time. This one is waiting for its day.";
 
   card.appendChild(title);
-  card.appendChild(message);
+  card.appendChild(msg);
 
   card.addEventListener("click", () => {
     if (day.status === "locked") {
       card.classList.toggle("show-message");
     }
-
     if (day.status === "active") {
-      openRoseDay();
+      if (day.name === "Rose Day") openRoseDay();
+      if (day.name === "Propose Day") openProposeDay();
     }
   });
 
   container.appendChild(card);
 });
 
+// ---------------- ROSE DAY ----------------
 function openRoseDay() {
   const app = document.getElementById("app");
 
@@ -163,4 +173,162 @@ function openRoseDay() {
     letter.style.animation = "burnLetter 2s forwards";
 
   }, 500);
+}
+
+// ---------------- PROPOSE DAY ----------------
+function openProposeDay() {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  document.body.classList.add("propose-active");
+  app.style.opacity = 0;
+
+  setTimeout(() => {
+    app.innerHTML = `
+      <div class="propose-day">
+        <div class="propose-letter">
+          <h2>🌙 Propose Day</h2>
+          <p>I love the moon,</p>
+          <p>but the moon doesn’t know…</p>
+          <p>
+            Some feelings are like starlight —<br>
+            they don’t rush, they don’t demand,<br>
+            they just quietly exist.
+          </p>
+          <p>
+            Today isn’t about asking anything.<br>
+            It’s just about letting a feeling breathe.
+          </p>
+          <p class="signature">— From someone who feels, gently</p>
+        </div>
+      </div>
+    `;
+
+    // remove old style if exists
+    const oldStyle = document.getElementById("proposeDayStyle");
+    if (oldStyle) oldStyle.remove();
+
+    const style = document.createElement("style");
+    style.id = "proposeDayStyle";
+    style.innerHTML = `
+      @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
+      .propose-day {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at top, #2b2d5a, #0b0c1f 75%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        animation: fadeIn 2s ease forwards;
+      }
+
+      /* 🌙 Moon */
+.propose-day::before {
+  content: "";
+  position: absolute;
+  top: 60px;
+  right: 70px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+  background:
+    /* subtle crater shadows */
+    radial-gradient(circle at 38% 42%, rgba(0,0,0,0.08) 0%, transparent 6%),
+    radial-gradient(circle at 58% 58%, rgba(0,0,0,0.07) 0%, transparent 5%),
+    radial-gradient(circle at 62% 35%, rgba(0,0,0,0.06) 0%, transparent 5%),
+    radial-gradient(circle at 45% 72%, rgba(0,0,0,0.07) 0%, transparent 6%),
+    radial-gradient(circle at 55% 25%, rgba(0,0,0,0.05) 0%, transparent 5%),
+
+    /* soft crater highlights (rim) */
+    radial-gradient(circle at 39% 43%, rgba(255,255,255,0.12) 0%, transparent 6%),
+    radial-gradient(circle at 59% 58%, rgba(255,255,255,0.10) 0%, transparent 6%),
+    radial-gradient(circle at 64% 33%, rgba(255,255,255,0.10) 0%, transparent 5%),
+    radial-gradient(circle at 44% 70%, rgba(255,255,255,0.12) 0%, transparent 6%),
+
+    /* base moon (soft gray) */
+    radial-gradient(
+      circle at 30% 30%,
+      #f5f5f5 0%,
+      #e2e2e2 35%,
+      #d0d0d0 60%,
+      #b8b8b8 100%
+    );
+
+  box-shadow:
+    inset -18px -18px 28px rgba(0,0,0,0.15),
+    inset 10px 10px 20px rgba(255,255,255,0.2),
+    0 0 50px rgba(255,255,255,0.3);
+
+  filter: blur(0.15px);
+  z-index: 1;
+}
+
+
+      /* ✨ Stars */
+      .propose-day::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(1px 1px at 5% 10%, white, transparent),
+          radial-gradient(1px 1px at 15% 40%, white, transparent),
+          radial-gradient(1px 1px at 25% 70%, white, transparent),
+          radial-gradient(1px 1px at 35% 20%, white, transparent),
+          radial-gradient(1px 1px at 45% 60%, white, transparent),
+          radial-gradient(1.5px 1.5px at 70% 35%, rgba(255,255,255,0.9), transparent),
+          radial-gradient(1.5px 1.5px at 90% 75%, rgba(255,255,255,0.8), transparent);
+        animation: twinkle 4s infinite alternate ease-in-out;
+        z-index: 0;
+      }
+
+      .propose-letter {
+        position: relative;
+        z-index: 2;
+        max-width: 520px;
+        padding: 40px;
+        background: rgba(20, 25, 50, 0.85);
+        border-radius: 18px;
+        color: #f1f1f1;
+        font-family: 'Homemade Apple', cursive;
+        text-align: center;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+        opacity: 0;
+        transform: translateY(40px);
+        animation: floatUp 2s ease forwards;
+      }
+
+      .signature {
+        margin-top: 25px;
+        text-align: right;
+        opacity: 0.8;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes floatUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes twinkle {
+        0% { opacity: 0.6; }
+        50% { opacity: 1; }
+        100% { opacity: 0.75; }
+      }
+    `;
+
+    document.head.appendChild(style);
+    app.style.opacity = 1;
+  }, 600);
+}
+
+/* ===== BUTTON LOGIC ===== */
+const proposeBtn = document.getElementById("proposeDayBtn");
+if (proposeBtn) {
+  proposeBtn.addEventListener("click", openProposeDay);
 }
