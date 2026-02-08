@@ -1,3 +1,4 @@
+
 /* ---------------- COMMON ---------------- */
 * {
   box-sizing: border-box;
@@ -180,3 +181,114 @@ body {
   }
 }
 
+/* ---------------- CHOCOLATE DAY ---------------- */
+.chocolate-day {
+  position: fixed;
+  inset: 0;
+  background: #3e1f0b; /* FULL brown base */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* 🍫 Melting chocolate layer */
+.chocolate-day::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  background:
+    linear-gradient(
+      to bottom,
+      #5a2a12 0%,
+      #6f3518 15%,
+      #4b220f 30%,
+      #3e1f0b 55%,
+      #3e1f0b 100%
+    );
+  animation: chocolateMelt 10s ease-in-out infinite;
+  filter: blur(0.3px);
+  z-index: 0;
+}
+
+/* Extra drips for realism */
+.chocolate-day::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60px 40px at 15% 0%, #5a2a12, transparent 70%),
+    radial-gradient(80px 50px at 40% 0%, #6f3518, transparent 70%),
+    radial-gradient(70px 45px at 70% 0%, #4b220f, transparent 70%);
+  animation: dripMove 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Letter */
+.chocolate-letter {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  padding: 40px;
+  background: rgba(50, 25, 12, 0.88);
+  border-radius: 18px;
+  color: #fbe3c5;
+  font-family: 'Homemade Apple', cursive;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(40px);
+  animation: floatUp 2s ease forwards;
+}
+
+.chocolate-letter .signature {
+  margin-top: 25px;
+  text-align: right;
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes chocolateMelt {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(18%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes dripMove {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floatUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🍫 Chocolate Day text reveal */
+.choco-line {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: revealChocolateLine 1s ease forwards;
+}
+
+/* Delays for each line */
+.choco-line:nth-of-type(1) { animation-delay: 0.6s; }
+.choco-line:nth-of-type(2) { animation-delay: 1.6s; }
+.choco-line:nth-of-type(3) { animation-delay: 2.6s; }
+.choco-line:nth-of-type(4) { animation-delay: 3.8s; }
+
+@keyframes revealChocolateLine {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
