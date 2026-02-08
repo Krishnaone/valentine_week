@@ -1,3 +1,4 @@
+
 // ---------------- HELPER ----------------
 function getTodayMMDD() {
   const d = new Date();
@@ -5,24 +6,20 @@ function getTodayMMDD() {
          String(d.getDate()).padStart(2, "0");
 }
 
-const today = getTodayMMDD();
+const today = "02-20";
 
 // ---------------- DAYS ----------------
 const days = [
-  { name: "Rose Day", date: "02-07" },
-  { name: "Propose Day", date: "02-08" },
-  { name: "Chocolate Day", date: "02-09" },
-  { name: "Teddy Day", date: "02-10" },
-  { name: "Promise Day", date: "02-11" },
-  { name: "Hug Day", date: "02-12" },
-  { name: "Flirting Day", date: "02-18" },
-  { name: "Confession Day", date: "02-19" },
-  { name: "Missing Day", date: "02-20" }
-].map(day => ({
-  ...day,
-  status: today >= day.date ? "active" : "locked"
-}));
-
+  { name: "Rose Day", status: "active" },
+  { name: "Propose Day", status: "active" },
+  { name: "Chocolate Day", status: "active" },
+  { name: "Teddy Day", status: "locked" },
+  { name: "Promise Day", status: "locked" },
+  { name: "Hug Day", status: "locked" },
+  { name: "Flirting Day", status: "locked" },
+  { name: "Confession Day", status: "locked" },
+  { name: "Missing Day", status: "locked" }
+]
 const container = document.getElementById("checkpoints");
 
 days.forEach(day => {
@@ -47,6 +44,7 @@ days.forEach(day => {
     if (day.status === "active") {
       if (day.name === "Rose Day") openRoseDay();
       if (day.name === "Propose Day") openProposeDay();
+      if (day.name === "Chocolate Day") openChocolateDay();
     }
   });
 
@@ -325,6 +323,32 @@ function openProposeDay() {
     document.head.appendChild(style);
     app.style.opacity = 1;
   }, 600);
+}
+
+
+// ---------------- CHOCOLATE DAY ----------------
+function openChocolateDay() {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  app.style.opacity = 0;
+
+  setTimeout(() => {
+    app.innerHTML = `
+      <div class="chocolate-day">
+        <div class="chocolate-letter">
+          <h2>🍫 Chocolate Day</h2>
+          <p class="choco-line">Just like chocolate melts slowly,</p>
+          <p class="choco-line">my heart melts when I think of you…</p>
+          <p class="choco-line">Today is sweet, simple, and for you.</p>
+          <p class="signature choco-line">— From someone who adores you</p>
+
+        </div>
+      </div>
+    `;
+
+    app.style.opacity = 1;
+  }, 500);
 }
 
 /* ===== BUTTON LOGIC ===== */
