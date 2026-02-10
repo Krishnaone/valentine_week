@@ -15,7 +15,7 @@ const days = [
     { name: "Propose Day", status: "active" },
     { name: "Chocolate Day", status: "active" },
     { name: "Teddy Day", status: "active" },
-    { name: "Promise Day", status: "locked" },
+    { name: "Promise Day", status: "active" },
     { name: "Hug Day", status: "locked" },
     { name: "Flirting Day", status: "locked" },
     { name: "Confession Day", status: "locked" },
@@ -51,6 +51,7 @@ days.forEach(day => {
             if (day.name === "Propose Day") openProposeDay();
             if (day.name === "Chocolate Day") openChocolateDay();
             if (day.name === "Teddy Day") openTeddyDay();
+            if (day.name === "Promise Day") openPromiseDay();
         }
     });
 
@@ -224,4 +225,72 @@ Happy Teddy Day My Cutie Plushie Teddy🧸🤍<br>
     // Envelope reveal slightly after
     setTimeout(() => envelope.classList.add("show"), 600);
   });
+}
+
+// ---------------- PROMISE DAY ----------------
+
+function openPromiseDay() {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  app.style.opacity = 0;
+
+  setTimeout(() => {
+    app.innerHTML = `
+      <div class="promise-day">
+        <h2><span class="heart">🤍</span> Promise Day</h2>
+
+        <p class="promise-intro">
+            Promises aren’t just read…<br>
+            They’re felt, unlocked… slowly, for you <span class="heart">💓</span>
+        </p>
+
+
+        <div id="promiseBox" class="promise-box"></div>
+
+        <button id="promiseBtn">Unlock Promise #1</button>
+      </div>
+    `;
+  
+    app.style.opacity = 1;
+
+    const promises = [
+      "I promise to notice when you go quiet — not just when you smile.",
+      "I promise to protect your softness, never take it lightly.",
+      "I promise my effort won’t fade after Valentine’s week ends.",
+      "I promise that I will be your safe zone.",
+      "I promise that if you share anything about your life — even if it’s personal — I’ll respect it.",
+      "I promise that I’ll be your cute, soft plushie teddy bear you can hug tightly at night whenever you feel lonely or low.",
+      "I promise that I’ll do my best to never let our bond fade, no matter the situation — always choosing understanding over distance."
+    ];
+
+    let index = 0;
+    const box = document.getElementById("promiseBox");
+    const btn = document.getElementById("promiseBtn");
+
+   btn.addEventListener("click", () => {
+  if (index < promises.length) {
+    const p = document.createElement("p");
+    p.className = "promise-line";
+    p.innerText = `🤍 ${index + 1}. ${promises[index]}`;
+    box.appendChild(p);
+
+    index++;
+
+    // If we just unlocked the last promise, show lock message
+    if (index === promises.length) {
+      btn.innerText = "All Promises Unlocked";
+      btn.disabled = true;
+      btn.style.opacity = "0.6";
+
+      const lockMsg = document.createElement("p");
+      lockMsg.className = "promise-lock";
+      lockMsg.innerHTML = "🔒 Some promises are meant to be lived…<br>Maybe one day, you'll unlock them all 💌";
+      box.appendChild(lockMsg);
+    } else {
+      btn.innerText = `Unlock Promise #${index + 1}`;
+    }
+  }
+  });
+},0);
 }
