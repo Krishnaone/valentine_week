@@ -634,3 +634,415 @@ body.blush-3 .promise-day {
   100% { filter: brightness(1); }
 }
 
+/* ---------------- HUG DAY HORROR ---------------- */
+
+.hug-day {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 25px;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #100b12, #2b0f1f);
+  transition: background 1.5s ease;
+  color: #ffdede;
+}
+
+/* Floating hearts / sparkles */
+.hug-day::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,120,160,0.15) 3px, transparent 3px),
+    radial-gradient(circle, rgba(255,180,200,0.1) 2px, transparent 3px);
+  background-size: 60px 60px;
+  opacity: 0.5;
+  animation: hugHearts 25s linear infinite;
+}
+
+@keyframes hugHearts {
+  0% { background-position: 0 -100%; }
+  100% { background-position: 0 100%; }
+}
+
+/* Heading */
+.hug-day h2 {
+  font-size: 38px;
+  color: #ff8fb0;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: hugTitleEnter 1.6s ease forwards;
+  letter-spacing: 1.2px;
+  text-shadow:
+    0 4px 16px rgba(255,110,160,0.6),
+    0 0 28px rgba(255,80,120,0.4);
+}
+
+.hug-day h2 .heart {
+  display: inline-block;
+  animation: hugHeartPulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(255,120,160,0.9));
+}
+
+@keyframes hugTitleEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hugHeartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+}
+
+/* Intro */
+.hug-intro {
+  font-size: 20px;
+  color: #ffb0c0;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: hugIntroEnter 2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes hugIntroEnter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hug Box */
+.hug-box {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 700px;
+  max-height: 55vh;
+  padding: 36px 42px;
+  border-radius: 26px;
+  background: linear-gradient(
+    to bottom,
+    rgba(20,10,20,0.85),
+    rgba(40,20,30,0.7)
+  );
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 35px 80px rgba(0,0,0,0.5),
+    inset 0 0 35px rgba(255,200,200,0.15);
+  overflow: auto;
+  scroll-behavior: smooth;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: hugBoxEnter 1.8s ease forwards;
+}
+
+.hug-box::-webkit-scrollbar { width: 0; }
+.hug-box { scrollbar-width: none; }
+
+@keyframes hugBoxEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Each hug line */
+.hug-line {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: hugReveal 1.4s ease forwards;
+  margin-bottom: 18px;
+  color: #ffdede;
+}
+
+@keyframes hugReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Unlock button */
+.hug-day button {
+  margin-top: 20px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #ff6a91, #d14a78);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(255,100,140,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+
+.hug-day button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 20px 55px rgba(255,100,140,0.65);
+}
+
+/* Lock message */
+.hug-lock {
+  margin-top: 26px;
+  font-size: 14px;
+  opacity: 0;
+  animation: hugReveal 1.6s ease forwards;
+}
+
+/* ---------------- BLUSH ESCALATION ---------------- */
+
+body.hug-blush-1 .hug-day {
+  background: radial-gradient(circle at center, #30102b, #4b113a);
+}
+
+body.hug-blush-2 .hug-day {
+  background: radial-gradient(circle at center, #3b0f2e, #5b1642);
+}
+
+body.hug-blush-3 .hug-day {
+  background: radial-gradient(circle at center, #451a33, #6b1f48);
+}
+
+body.hug-blush-4 .hug-day {
+  background: radial-gradient(circle at center, #5b2044, #8b2b5e);
+}
+
+body.hug-blush-5 .hug-day {
+  background: radial-gradient(circle at center, #71285a, #aa3b76);
+}
+
+/* Sparkle escalation */
+body.hug-blush-2 .hug-day::before { opacity: 0.65; }
+body.hug-blush-3 .hug-day::before { opacity: 0.75; }
+body.hug-blush-4 .hug-day::before { opacity: 0.85; }
+body.hug-blush-5 .hug-day::before { opacity: 0.95; }
+
+/* ---------------- JUMPSCARE EFFECTS ---------------- */
+
+.screen-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0.85;
+  z-index: 999;
+  pointer-events: none;
+  animation: flashQuick 0.12s ease forwards;
+}
+
+@keyframes flashQuick {
+  from { opacity: 0.85; }
+  to { opacity: 0; }
+}
+
+.shake {
+  animation: screenShake 0.2s ease-in-out;
+}
+
+@keyframes screenShake {
+  0%   { transform: translate(0, 0) rotate(0); }
+  25%  { transform: translate(5px, -5px) rotate(-1deg); }
+  50%  { transform: translate(-5px, 5px) rotate(1deg); }
+  75%  { transform: translate(5px, -5px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+/* ---------------- WARNING OVERLAY ---------------- */
+
+.hug-day-warning {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #2b0c1a, #10040a);
+  color: #ff7ca6;
+  text-align: center;
+  z-index: 1000;
+}
+
+.hug-day-warning h2 {
+  font-size: 34px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 16px rgba(255,120,160,0.7);
+}
+
+.hug-day-warning p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.hug-day-warning button {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #ff6a91, #d14a78);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(255,100,140,0.5);
+}
+
+.hug-day-warning button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 20px 55px rgba(255,100,140,0.65);
+}
+
+.hidden {
+  display: none;
+}
+
+.hug-title.clickable {
+  cursor: pointer;
+}
+
+/* ---------------- FINAL PROPOSAL (ROMANTIC) ---------------- */
+
+.final-scene.romantic {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffe6f0, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.final-scene::before {
+  content: "💗 💕 💖 💘 💞";
+  position: absolute;
+  top: -20%;
+  animation: hearts 8s linear infinite;
+  font-size: 2rem;
+  opacity: 0.4;
+}
+
+@keyframes hearts {
+  from { transform: translateY(0); }
+  to { transform: translateY(140vh); }
+}
+
+
+/* Question text */
+.final-question {
+  font-size: 30px;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  z-index: 2;
+  text-shadow: 0 6px 18px rgba(255,120,160,0.45);
+}
+
+/* Buttons */
+.final-options {
+  display: flex;
+  gap: 28px;
+  z-index: 2;
+}
+
+.final-options button {
+  padding: 14px 40px;
+  border-radius: 999px;
+  border: none;
+  margin: 12px;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  box-shadow: 0 10px 20px rgba(255,105,180,0.3);
+  cursor: pointer;
+}
+
+
+.final-options button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 55px rgba(255,105,135,0.65);
+}
+
+/* ---------------- FINAL PROPOSAL (ROMANTIC) ---------------- */
+
+.final-scene.romantic {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 25px;
+
+  background: radial-gradient(circle at top, #fff0f6, #ffd6e8);
+  color: #5a1d35;
+  overflow: hidden;
+}
+
+/* Hearts rain */
+.final-scene.romantic::before {
+  content: "💖 💕 💘 🤍 💞 💓";
+  position: absolute;
+  inset: 0;
+  font-size: 2.2rem;
+  animation: proposalHearts 14s linear infinite;
+  opacity: 0.35;
+}
+
+@keyframes proposalHearts {
+  from { transform: translateY(-20%); }
+  to { transform: translateY(120%); }
+}
+
+/* Question text */
+.final-question {
+  font-size: 30px;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  z-index: 2;
+  text-shadow: 0 6px 18px rgba(255,120,160,0.45);
+}
+
+/* Buttons */
+.final-options {
+  display: flex;
+  gap: 28px;
+  z-index: 2;
+}
+
+.final-options button {
+  padding: 16px 40px;
+  border-radius: 999px; /* cylinder */
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff8fb1, #ffb6c1);
+  color: white;
+
+  box-shadow: 0 14px 35px rgba(255,105,135,0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.final-options button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 55px rgba(255,105,135,0.65);
+}
